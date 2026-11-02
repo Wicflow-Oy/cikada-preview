@@ -366,7 +366,7 @@ p a:hover, li a:hover { text-decoration: underline; text-underline-offset: 3px; 
 }
 .cik-spa a { color: #fff; text-decoration: underline; }
 .cik-over {
-	margin: 0 0 20px !important;
+	margin: 0 auto 20px !important; /* centred over the heading at every width */
 	text-align: center;
 	font-size: 15px;
 	font-weight: 600;
