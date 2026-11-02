@@ -1,0 +1,570 @@
+/*
+ * Hotell Cikada – theme styles.
+ * Colours, fonts and sizes come from theme.json (--wp--preset--*).
+ * Desktop matches the 1280 px concept. Mobile is not designed yet (DEV-387: comes later).
+ */
+
+:root {
+	--cik-blue: var(--wp--preset--color--blue);
+	--cik-blue-dark: var(--wp--preset--color--blue-dark);
+	--cik-blue-deep: var(--wp--preset--color--blue-deep);
+	--cik-sky: var(--wp--preset--color--sky);
+	--cik-sky-2: var(--wp--preset--color--sky-2);
+	--cik-line: var(--wp--preset--color--line);
+	--cik-red: var(--wp--preset--color--red);
+	--cik-ink: var(--wp--preset--color--ink);
+	--cik-text: var(--wp--preset--color--text);
+	--cik-muted: var(--wp--preset--color--muted);
+	--cik-display: var(--wp--preset--font-family--display);
+	--cik-body: var(--wp--preset--font-family--text);
+	--cik-wrap: 1160px;
+	--cik-gutter: var(--wp--style--root--padding-left, 16px);
+	--cik-section: clamp(56px, 8.125vw, 104px); /* 104 px at 1280 */
+	--cik-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+	--cik-i-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+	--cik-i-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E");
+	--cik-i-sun: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+	--cik-i-phone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z'/%3E%3C/svg%3E");
+	--cik-i-mail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='M3 7l9 6 9-6'/%3E%3C/svg%3E");
+}
+
+/* ---------- Base ---------- */
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+}
+body { -webkit-font-smoothing: antialiased; }
+
+h1, h2, h3, h4 {
+	text-wrap: balance;
+	overflow-wrap: break-word; /* split a long Swedish compound only when it cannot fit a line on its own */
+	hyphens: auto;
+}
+p, li, figcaption { text-wrap: pretty; }
+
+a { text-decoration: none; }
+p a:hover, li a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+:where(a, button, .wp-block-button__link):focus-visible {
+	outline: 3px solid var(--cik-blue);
+	outline-offset: 3px;
+	border-radius: 3px;
+}
+
+/* Sections sit flush against each other; each sets its own padding. */
+.cik-home > .cik-section,
+.site-main > .cik-home { margin-block: 0 !important; }
+.wp-site-blocks > .site-footer,
+.wp-site-blocks > main { margin-block-start: 0; }
+.cik-section { padding-block: var(--cik-section); }
+
+/* No browser heading margins and no core column margins inside the layout:
+   every gap below is set explicitly to match the concept. */
+:where(.cik-section, .site-footer) :where(h1, h2, h3, h4) { margin-block: 0; }
+.cik-section .wp-block-columns,
+.site-footer .wp-block-columns { margin-block-end: 0; }
+
+/* Photo frames: pale tint shows if a photo is missing or still loading. */
+.cik-cover { margin: 0; }
+.cik-cover img {
+	display: block;
+	width: 100%;
+	object-fit: cover;
+	background: var(--cik-sky);
+}
+.cik-pos-35 img { object-position: 35% 60%; }
+.cik-pos-40 img { object-position: 40% 50%; }
+.cik-pos-40-55 img { object-position: 40% 55%; }
+.cik-pos-62 img { object-position: 62% 50%; }
+.cik-pos-65 img { object-position: 65% 50%; }
+.cik-pos-70 img { object-position: 70% 50%; }
+
+.wp-element-caption,
+.cik-cover figcaption {
+	margin: 12px 0 0;
+	font-size: 16px;
+	line-height: 1.62;
+	text-align: left;
+	color: var(--cik-muted);
+}
+
+/* ---------- Buttons and text links ---------- */
+
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	white-space: nowrap;
+	transition: background-color .16s ease, color .16s ease, border-color .16s ease, transform .16s var(--cik-ease-out);
+}
+.wp-block-button__link:active { transform: scale(0.97); }
+.wp-block-button:not(.is-style-outline):not(.cik-noarrow) .wp-block-button__link::after,
+.cik-tlink a::after {
+	content: "";
+	flex: none;
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask: var(--cik-i-arrow) center / contain no-repeat;
+	mask: var(--cik-i-arrow) center / contain no-repeat;
+	transition: transform .2s var(--cik-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+	.wp-block-button__link:hover::after,
+	.cik-tlink a:hover::after { transform: translateX(3px); }
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	background: transparent;
+	color: var(--cik-blue);
+	border: 1.5px solid var(--cik-blue);
+	padding: 17px 24.5px;
+}
+@media (hover: hover) and (pointer: fine) {
+	.wp-block-button.is-style-outline .wp-block-button__link:hover {
+		background: var(--cik-sky);
+		color: var(--cik-blue-deep);
+	}
+}
+
+.cik-tlink { margin: 0; font-size: 17px; font-weight: 600; }
+.cik-tlink a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--cik-blue);
+	transition: color .16s ease;
+}
+.cik-tlink a:hover { text-decoration: none; color: var(--cik-blue-deep); }
+
+.cik-row { gap: 14px 26px; }
+.cik-row > * { margin: 0 !important; }
+
+/* ---------- Header ---------- */
+
+.site-header { background: #fff; border-bottom: 1px solid #E3ECF2; position: relative; z-index: 20; }
+.site-header__bar { padding-block: 0; }
+.site-header__inner { min-height: 104px; gap: 24px; }
+.site-header__inner > * { margin: 0 !important; }
+
+.site-logo { margin: 0; flex: none; }
+.site-logo img { width: 212px !important; height: auto; display: block; }
+
+.site-nav {
+	font-family: var(--cik-body);
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--cik-ink);
+	--navigation-layout-justification-setting: center;
+}
+.site-nav .wp-block-navigation__container { gap: 34px; }
+.site-nav .wp-block-navigation-item__content { color: var(--cik-ink); padding-block: 8px; transition: color .16s ease; }
+.site-nav .wp-block-navigation-item__content:hover { color: var(--cik-blue); }
+
+.site-header__actions { gap: 28px; flex: none; }
+.site-lang {
+	display: flex;
+	gap: 12px;
+	margin: 0;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: .04em;
+	color: var(--cik-muted);
+}
+.site-lang strong { color: var(--cik-blue); }
+.site-lang a { color: var(--cik-muted); }
+.site-lang a:hover { color: var(--cik-blue); text-decoration: none; }
+.site-header__book .wp-block-button__link { padding: 15px 22px; font-size: 16px; }
+
+@media (max-width: 1240px) and (min-width: 1100px) {
+	.site-nav .wp-block-navigation__container { gap: 24px; }
+	.site-header__actions { gap: 20px; }
+}
+/* Narrow laptops: room for the longer Finnish labels (e.g. "Neuvottelutilat") on one row. */
+@media (max-width: 1180px) and (min-width: 1100px) {
+	.site-nav .wp-block-navigation__container { gap: 18px; }
+	.site-header__actions { gap: 16px; }
+}
+
+/* ---------- Hero ---------- */
+
+.cik-hero { padding: 0; }
+.cik-hero__cols { gap: 0 !important; margin: 0 !important; }
+.cik-hero__text > * { margin-block: 0; }
+.cik-kicker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1;
+	color: var(--cik-blue);
+}
+.cik-kicker::before {
+	content: "";
+	flex: none;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--cik-red);
+}
+.cik-hero__title { color: var(--cik-blue); margin-top: 26px !important; }
+/* Second line of the hero title: core "text colour" format, never a highlight. */
+.cik-hero__title mark { background: none; color: var(--cik-ink); }
+.cik-lead {
+	margin-top: 26px !important;
+	max-width: 470px;
+	font-size: var(--wp--preset--font-size--lead);
+	line-height: 1.58;
+}
+.cik-hero__ctas { margin-top: 34px !important; gap: 14px; }
+.cik-call { margin-top: 22px !important; font-size: 16px; color: var(--cik-muted); }
+.cik-call a { color: var(--cik-ink); font-weight: 600; white-space: nowrap; }
+
+.cik-hero__media { position: relative; background: var(--cik-sky); }
+.cik-hero__media .wp-block-image { margin: 0; }
+.cik-hero__media img { height: 100%; object-position: 25% 50%; } /* hero file is pre-cropped: no sunbather at the left edge */
+
+.cik-chip-caption { position: relative; }
+.cik-chip-caption:not(:has(img)) figcaption { display: none; }
+.cik-chip-caption figcaption {
+	position: absolute;
+	right: 24px;
+	bottom: 24px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	max-width: calc(100% - 48px);
+	margin: 0;
+	padding: 11px 14px;
+	border-radius: 4px;
+	background: #fff;
+	color: var(--cik-ink);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.cik-hero .cik-chip-caption figcaption::before {
+	content: "";
+	flex: none;
+	width: 16px;
+	height: 16px;
+	background: var(--cik-blue);
+	-webkit-mask: var(--cik-i-sun) center / contain no-repeat;
+	mask: var(--cik-i-sun) center / contain no-repeat;
+}
+.cik-chip-caption.is-dark-chip figcaption {
+	right: auto;
+	left: 24px;
+	bottom: 22px;
+	padding: 10px 13px;
+	background: rgba(18, 45, 78, .72);
+	color: #fff;
+}
+
+@media (min-width: 782px) {
+	.cik-hero__cols { flex-wrap: nowrap !important; align-items: stretch !important; min-height: clamp(540px, 50vw, 640px); }
+	.cik-hero__text {
+		flex: 1 1 auto !important;
+		align-self: center;
+		padding: 56px clamp(32px, 4vw, 56px) 56px max(var(--cik-gutter), calc((100% - var(--cik-wrap)) / 2));
+	}
+	.cik-hero__text > :not(.cik-lead) { max-width: 500px; }
+	/* 660 px at 1280, growing with the viewport so the photo keeps bleeding right. */
+	.cik-hero__media { flex: 0 0 calc(660px + (100% - 1280px) / 2) !important; align-self: stretch; }
+	.cik-hero__media .wp-block-image { position: absolute; inset: 0; }
+}
+/* ---------- Hotellet i korthet ---------- */
+
+.cik-brief { background: var(--cik-sky); padding-block: clamp(56px, 7vw, 80px) clamp(60px, 7.5vw, 88px); }
+.cik-brief__title {
+	color: var(--cik-blue);
+	font-size: clamp(30px, 4vw, 38px);
+	line-height: 1.1;
+	letter-spacing: -.018em;
+}
+.cik-brief__cols { margin-top: 34px !important; gap: 24px 56px !important; }
+.cik-label {
+	margin: 0;
+	padding-bottom: 14px;
+	border-bottom: 2px solid var(--cik-blue);
+	font-family: var(--cik-body);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--cik-muted);
+}
+.cik-ticks { list-style: none; margin: 0 !important; padding: 0; }
+.cik-ticks li {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 11px 0;
+	border-bottom: 1px solid var(--cik-line);
+	font-size: 18px;
+	line-height: 1.4;
+	color: var(--cik-ink);
+}
+.cik-ticks li::before {
+	content: "";
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-top: 1px;
+	background: var(--cik-blue);
+	-webkit-mask: var(--cik-i-tick) center / contain no-repeat;
+	mask: var(--cik-i-tick) center / contain no-repeat;
+}
+.cik-brief__cols .wp-block-column > * + * { margin-top: 0; }
+
+/* ---------- 88 rum ---------- */
+
+.cik-rooms { padding-block: var(--cik-section) clamp(56px, 7.5vw, 96px); }
+.cik-rooms__head { gap: 24px 56px !important; align-items: flex-end !important; margin-block: 0 !important; }
+.cik-rooms__num { display: flex; align-items: flex-end; gap: 14px; }
+.cik-rooms__num > * { margin: 0 !important; }
+.cik-bignum {
+	font-family: var(--cik-display);
+	font-size: clamp(128px, 16vw, 208px);
+	font-weight: 800;
+	line-height: .74;
+	letter-spacing: -.05em;
+	color: var(--cik-blue);
+}
+.cik-bignum__unit {
+	padding-bottom: 4px;
+	font-family: var(--cik-display);
+	font-size: clamp(30px, 3vw, 40px);
+	font-weight: 700;
+	line-height: 1;
+	color: var(--cik-ink);
+}
+.cik-rooms__head h2 { max-width: 560px; }
+.cik-rooms__head h2 + p { margin-top: 18px; max-width: 640px; }
+.cik-rooms__head .cik-row { margin-top: 30px; }
+
+.cik-film { margin-top: clamp(40px, 5vw, 64px) !important; gap: 16px !important; }
+.cik-film .wp-block-column { min-width: 0; }
+.cik-film img { height: 300px; }
+.cik-film figcaption { color: var(--cik-ink); font-weight: 600; }
+
+@media (min-width: 782px) {
+	/* 380 px as in the concept; wider when the word beside the numeral is longer (FI "huonetta"). */
+	.cik-rooms__num { flex: 0 0 auto !important; min-width: 380px; }
+	.cik-bignum, .cik-bignum__unit { white-space: nowrap; }
+}
+/* ---------- Pool, bastu, gym ---------- */
+
+.cik-spa {
+	background: var(--cik-blue);
+	color: #fff;
+	padding-block: clamp(64px, 7.5vw, 96px) clamp(60px, 7.2vw, 92px);
+}
+.cik-spa a { color: #fff; text-decoration: underline; }
+.cik-over {
+	margin: 0 0 20px !important;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 600;
+	letter-spacing: .02em;
+	line-height: 1;
+	color: #D4EEF7;
+}
+.cik-spa__title {
+	max-width: 900px;
+	margin-top: 0 !important;
+	text-align: center;
+	color: #fff;
+	font-size: var(--wp--preset--font-size--section-large);
+	line-height: 1.06;
+}
+.cik-spa__photo { margin-top: clamp(32px, 4vw, 52px) !important; }
+.cik-spa__photo img { height: clamp(240px, 39.1vw, 500px); object-position: 50% 62%; background: var(--cik-blue-dark); }
+.cik-trio { margin-top: clamp(32px, 3.8vw, 48px) !important; gap: 28px 32px !important; }
+.cik-trio .wp-block-column {
+	display: grid;
+	grid-template-columns: 124px minmax(0, 1fr);
+	grid-template-rows: auto 1fr;
+	column-gap: 20px;
+	align-content: start;
+}
+.cik-trio .wp-block-column > * { margin: 0; }
+.cik-thumb { grid-row: 1 / span 2; }
+.cik-thumb img { width: 124px; height: 124px; background: var(--cik-blue-dark); }
+.cik-trio .wp-block-column > h3 { margin: 4px 0 8px; color: #fff; line-height: 1.62; }
+.cik-trio p { font-size: 17px; line-height: 1.55; color: #E1ECF7; }
+/* ---------- Restaurang ---------- */
+
+.cik-resto { padding-block: var(--cik-section) clamp(56px, 7.8vw, 100px); }
+.cik-ruled {
+	line-height: 1.62; /* the concept's restaurant heading uses the body line height */
+	display: flex;
+	align-items: center;
+	gap: 28px;
+}
+.cik-ruled::after {
+	content: "";
+	flex: 1 1 40px;
+	height: 1px;
+	background: var(--cik-line);
+}
+.cik-resto__grid { margin-top: clamp(28px, 3.8vw, 48px) !important; gap: 32px 56px !important; }
+.cik-resto__main img { height: clamp(260px, 40.625vw, 520px); }
+.cik-resto__side { display: flex; flex-direction: column; }
+.cik-resto__side > * { margin-block: 0; }
+.cik-resto__side > p { margin-top: 22px; }
+.cik-chips { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 0; padding: 0; }
+.cik-chips li {
+	padding: 10px 13px;
+	border-radius: 4px;
+	background: var(--cik-sky);
+	color: var(--cik-blue-deep);
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1;
+}
+.cik-resto__small { margin-top: auto !important; padding-top: 32px; }
+.cik-resto__small img { height: 384px; object-position: 50% 58%; }
+@media (min-width: 782px) {
+	.cik-resto__main { flex: 0 0 58.6% !important; }
+}
+/* ---------- Konferens ---------- */
+
+.cik-conf { background: var(--cik-sky); padding-block: clamp(56px, 6.9vw, 88px); }
+.cik-conf__mt .wp-block-media-text__content { padding: 0; }
+.cik-conf__mt .wp-block-media-text__content > * { margin-block: 0; }
+.cik-conf__mt h2 { font-size: clamp(31px, 3.4vw, 42px); }
+.cik-conf__mt .wp-block-media-text__content > h2 + p { margin-top: 18px; max-width: 470px; }
+.cik-conf__mt .wp-block-media-text__content > .cik-row { margin-top: 30px; gap: 14px 24px; }
+.cik-phone { font-size: 17px; font-weight: 600; }
+.cik-phone a { color: var(--cik-ink); white-space: nowrap; }
+.cik-conf__mt .wp-block-media-text__media { background: var(--cik-sky-2); }
+.cik-conf__mt .wp-block-media-text__media img { height: 340px; object-fit: cover; object-position: 50% 62%; }
+@media (min-width: 782px) {
+	.wp-block-media-text.cik-conf__mt { grid-template-columns: minmax(0, 1fr) minmax(0, 600px); column-gap: clamp(40px, 5.6vw, 72px); }
+}
+/* ---------- Läge och bokning ---------- */
+
+.cik-visit__grid { gap: 40px 72px !important; align-items: stretch !important; }
+.cik-visit__media .wp-block-image { height: 100%; display: flex; flex-direction: column; }
+.cik-visit__media img { flex: none; height: 600px; }
+.cik-sub { margin-top: 14px !important; color: var(--cik-muted); }
+.cik-dist { margin: 30px 0 0 !important; }
+.cik-dist table { table-layout: auto; border-collapse: collapse; width: 100%; border-top: 1px solid var(--cik-line); }
+.cik-dist td { padding: 16px 0; border: 0; border-bottom: 1px solid var(--cik-line); font-size: 18px; color: var(--cik-ink); vertical-align: baseline; }
+.cik-dist td + td {
+	padding-left: 16px;
+	text-align: right;
+	white-space: nowrap;
+	font-family: var(--cik-display);
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--cik-blue);
+}
+.cik-visit .cik-tlink { margin-top: 22px; }
+
+.cik-book {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 10px 28px;
+	align-items: center;
+	margin-top: 44px !important;
+	padding: 34px 36px;
+	border-radius: 6px;
+	background: var(--cik-sky);
+}
+.cik-book > * { margin: 0 !important; }
+.cik-book h3 { font-size: 28px; line-height: 1.62; letter-spacing: -.015em; }
+.cik-book > p:not(.cik-book__lines) { grid-column: 1; font-size: 17px; }
+.cik-book > .wp-block-buttons { grid-column: 2; grid-row: 1 / span 2; }
+.cik-book__lines {
+	grid-column: 1 / -1;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 32px;
+	margin-top: 18px !important;
+	padding-top: 18px;
+	border-top: 1px solid var(--cik-line);
+	font-size: 17px;
+	font-weight: 600;
+}
+.cik-book__lines a { display: inline-flex; align-items: center; gap: 9px; color: var(--cik-ink); overflow-wrap: anywhere; }
+.cik-book__lines a::before {
+	content: "";
+	flex: none;
+	width: 19px;
+	height: 19px;
+	background: var(--cik-blue);
+	-webkit-mask: var(--cik-i-phone) center / contain no-repeat;
+	mask: var(--cik-i-phone) center / contain no-repeat;
+}
+.cik-book__lines a.cik-ico-mail::before {
+	-webkit-mask-image: var(--cik-i-mail);
+	mask-image: var(--cik-i-mail);
+}
+@media (min-width: 782px) {
+	.cik-visit__media { flex: 0 0 clamp(40%, 39vw, 500px) !important; }
+}
+/* ---------- Footer ---------- */
+
+.site-footer { background: var(--cik-sky-2); color: var(--cik-text); }
+.site-footer__main { padding-block: 64px 56px; }
+.site-footer__cols { gap: 32px 48px !important; margin-block: 0 !important; }
+.site-footer__cols > * > * { margin-block: 0; }
+.site-footer__about p { margin-top: 18px; max-width: 260px; font-size: 16px; line-height: 1.55; color: var(--cik-muted); }
+.site-footer__title {
+	margin-bottom: 18px !important;
+	font-family: var(--cik-body);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--cik-blue-deep);
+}
+.site-footer__cols .wp-block-column > p,
+.site-footer__links li { font-size: 16px; line-height: 1.5; color: var(--cik-ink); }
+.site-footer__cols .wp-block-column > p + p { margin-top: 8px; }
+.site-footer__links { list-style: none; margin: 0; padding: 0; }
+.site-footer__links li { padding: 4px 0; }
+.site-footer a { color: var(--cik-ink); }
+.site-footer__note,
+.site-footer__cols .site-footer__note { font-size: 14px; color: var(--cik-muted); }
+.site-footer__cols p.site-footer__note { margin-top: 4px; }
+
+.site-footer__bar { background: var(--cik-blue-deep); color: #D5E4F2; padding-block: 18px; font-size: 14.5px; }
+.site-footer__bar-inner { gap: 8px 24px; min-height: 24px; }
+.site-footer__bar-inner > * { margin: 0 !important; }
+.site-footer__langs { display: flex; gap: 22px; }
+.site-footer__langs strong { color: #fff; font-weight: 600; }
+.site-footer__bar a { color: #D5E4F2; }
+.site-footer__bar a:hover { color: #fff; }
+
+@media (min-width: 782px) {
+	.site-footer__about { flex: 1.25 1 0 !important; }
+	.site-footer__cols > .wp-block-column:last-child { flex: 1.1 1 0 !important; }
+}
+/* ---------- Entrances ----------
+   assets/js/cikada.js (front page, 782 px and wider) adds .cik-js to <html> and
+   .cik-r to the parts of each section, then .is-in once each part is on
+   screen, never replayed. Without script or with reduced motion, nothing moves
+   and everything is simply there. */
+
+@media (prefers-reduced-motion: no-preference) {
+	.cik-js .cik-r {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity .6s var(--cik-ease-out), transform .8s var(--cik-ease-out);
+		transition-delay: var(--cik-d, 0ms);
+	}
+	.cik-js .cik-r.is-in { opacity: 1; transform: none; }
+}
+
+/* ---------- Plain pages (privacy policy etc.) ---------- */
+
+.cik-page { padding-block: clamp(40px, 6vw, 80px); }
