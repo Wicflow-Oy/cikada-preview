@@ -1,10 +1,64 @@
 /**
- * Hotell Cikada front page: the parts of each section rise into place once,
- * in reading order, as they come on screen (styles in assets/css/cikada.css).
- * Desktop only (782 px and wider) and skipped with reduced motion; without
- * this script everything is simply shown.
+ * Hotell Cikada front pages (SV, FI, EN).
+ *
+ * 1. Phone menu: closes with a short 150 ms fade instead of vanishing, and
+ *    closes when one of its links is tapped (core leaves it open after an
+ *    in-page link, which would cover the section you jumped to).
+ * 2. Desktop (782 px and wider): the parts of each section rise into place
+ *    once, in reading order, as they come on screen. Skipped with reduced
+ *    motion; without this script everything is simply shown.
+ * Styles for both are in assets/css/cikada.css.
  */
 ( function () {
+	// ----- 1. Phone menu -----
+	var closing = false;
+	function closeMenu( overlay, done ) {
+		var closeBtn = overlay.querySelector( '.wp-block-navigation__responsive-container-close' );
+		if ( ! closeBtn ) {
+			return;
+		}
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		closing = true;
+		overlay.classList.add( 'cik-closing' );
+		window.setTimeout( function () {
+			overlay.classList.remove( 'cik-closing' );
+			closeBtn.click(); // let core close it: focus, scroll lock and aria stay core's job
+			closing = false;
+			if ( done ) {
+				done();
+			}
+		}, reduce ? 0 : 150 );
+	}
+	document.addEventListener( 'click', function ( e ) {
+		if ( closing ) {
+			return;
+		}
+		var overlay = e.target.closest( '.site-nav .wp-block-navigation__responsive-container.is-menu-open' );
+		if ( ! overlay ) {
+			return;
+		}
+		if ( e.target.closest( '.wp-block-navigation__responsive-container-close' ) ) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			closeMenu( overlay );
+			return;
+		}
+		var link = e.target.closest( 'a[href]' );
+		if ( link && link.hash && link.pathname === window.location.pathname ) {
+			// An in-page link: close first, then jump, so the target isn't hidden.
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			closeMenu( overlay, function () {
+				var target = document.getElementById( link.hash.slice( 1 ) );
+				if ( target ) {
+					target.scrollIntoView();
+					history.pushState( null, '', link.hash );
+				}
+			} );
+		}
+	}, true );
+
+	// ----- 2. Section entrances (desktop) -----
 	if ( ! ( 'IntersectionObserver' in window ) ||
 		! window.matchMedia( '(min-width: 782px) and (prefers-reduced-motion: no-preference)' ).matches ) {
 		return;

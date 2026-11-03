@@ -80,8 +80,8 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 /*# sourceURL=global-styles-inline-css */
 </style>
 <style id="block-style-variation-styles-inline-css">
-:root :where(.wp-block-button.is-style-outline--1 .wp-block-button__link){background: transparent none;border-color: currentColor;border-width: 2px;border-style: solid;color: currentColor;padding-top: 0.667em;padding-right: 1.33em;padding-bottom: 0.667em;padding-left: 1.33em;}
 :root :where(.wp-block-button.is-style-outline--2 .wp-block-button__link){background: transparent none;border-color: currentColor;border-width: 2px;border-style: solid;color: currentColor;padding-top: 0.667em;padding-right: 1.33em;padding-bottom: 0.667em;padding-left: 1.33em;}
+:root :where(.wp-block-button.is-style-outline--3 .wp-block-button__link){background: transparent none;border-color: currentColor;border-width: 2px;border-style: solid;color: currentColor;padding-top: 0.667em;padding-right: 1.33em;padding-bottom: 0.667em;padding-left: 1.33em;}
 /*# sourceURL=block-style-variation-styles-inline-css */
 </style>
 <style id="wp-emoji-styles-inline-css">
@@ -112,6 +112,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <meta name="generator" content="WordPress 7.1.4" />
 <link rel="canonical" href="index.html" />
 <link rel='shortlink' href='index.html' />
+<script id="wp-importmap" type="importmap">{"imports":{"@wordpress/interactivity":"./wp-includes/js/dist/script-modules/interactivity/index.min.js"}}</script>
 <style class="wp-fonts-local">
 @font-face{font-family:"Red Hat Display";font-style:normal;font-weight:300 900;font-display:swap;src:url('wp-content/themes/cikada/assets/fonts/red-hat-display-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 @font-face{font-family:"Red Hat Display";font-style:normal;font-weight:300 900;font-display:swap;src:url('wp-content/themes/cikada/assets/fonts/red-hat-display-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
@@ -128,7 +129,37 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <figure class="wp-block-image size-full is-resized site-logo"><a href="index.html"><img decoding="async" src="wp-content/themes/cikada/assets/images/cikada-logo.png" alt="Hotell Cikada, till startsidan" style="width:212px"/></a></figure>
 
 
-<nav class="items-justified-center site-nav wp-block-navigation is-content-justification-center is-layout-flex wp-container-core-navigation-is-layout-165df2ac wp-block-navigation-is-layout-flex"><ul class="wp-block-navigation__container items-justified-center site-nav wp-block-navigation"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#rum"><span class="wp-block-navigation-item__label">Rum</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#pool"><span class="wp-block-navigation-item__label">Pool &amp; bastu</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#restaurang"><span class="wp-block-navigation-item__label">Restaurang</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#konferens"><span class="wp-block-navigation-item__label">Konferens</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#kontakt"><span class="wp-block-navigation-item__label">Kontakt</span></a></li></ul></nav>
+<nav class="is-responsive items-justified-center site-nav wp-block-navigation is-content-justification-center is-layout-flex wp-container-core-navigation-is-layout-165df2ac wp-block-navigation-is-layout-flex" 
+		 data-wp-interactive="core/navigation" data-wp-context='{"overlayOpenedBy":{"click":false,"hover":false,"focus":false},"type":"overlay","roleAttribute":"","ariaLabel":"Meny"}'><button aria-haspopup="dialog" aria-label="Meny" class="wp-block-navigation__responsive-container-open" 
+				data-wp-on--click="actions.openMenuOnClick"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+			><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v1.5h14V5H5z"></path><path d="M5 12.8h14v-1.5H5v1.5z"></path><path d="M5 19h14v-1.5H5V19z"></path></svg></button>
+				<div class="wp-block-navigation__responsive-container"  id="modal-1" 
+				data-wp-class--has-modal-open="state.isMenuOpen"
+				data-wp-class--is-menu-open="state.isMenuOpen"
+				data-wp-watch="callbacks.initMenu"
+				data-wp-on--keydown="actions.handleMenuKeydown"
+				data-wp-on--focusout="actions.handleMenuFocusout"
+				tabindex="-1"
+			>
+					<div class="wp-block-navigation__responsive-close" tabindex="-1">
+						<div class="wp-block-navigation__responsive-dialog" 
+				data-wp-bind--aria-modal="state.ariaModal"
+				data-wp-bind--aria-label="state.ariaLabel"
+				data-wp-bind--role="state.roleAttribute"
+			>
+							<button aria-label="Stäng meny" class="wp-block-navigation__responsive-container-close" 
+				data-wp-on--click="actions.closeMenuOnClick"
+			><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg></button>
+							<div class="wp-block-navigation__responsive-container-content" 
+				data-wp-watch="callbacks.focusFirstElement"
+			 id="modal-1-content">
+								<ul class="wp-block-navigation__container is-responsive items-justified-center site-nav wp-block-navigation"><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#rum"><span class="wp-block-navigation-item__label">Rum</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#pool"><span class="wp-block-navigation-item__label">Pool &amp; bastu</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#restaurang"><span class="wp-block-navigation-item__label">Restaurang</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#konferens"><span class="wp-block-navigation-item__label">Konferens</span></a></li><li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="index.html#kontakt"><span class="wp-block-navigation-item__label">Kontakt</span></a></li><li class="wp-block-navigation-item cik-nav-contact cik-nav-phone wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="tel:+3581816333"><span class="wp-block-navigation-item__label">+358 18 16333</span></a></li><li class="wp-block-navigation-item cik-nav-contact cik-nav-mail wp-block-navigation-link"><a class="wp-block-navigation-item__content"  href="mailto:hotell@cikada.aland.fi"><span class="wp-block-navigation-item__label">hotell@cikada.aland.fi</span></a></li><li class="wp-block-navigation-item cik-nav-lang is-current wp-block-navigation-link"><a lang="sv" hreflang="sv" class="wp-block-navigation-item__content"  href="index.html"><span class="wp-block-navigation-item__label">Svenska</span></a></li><li class="wp-block-navigation-item cik-nav-lang wp-block-navigation-link"><a lang="fi" hreflang="fi" class="wp-block-navigation-item__content"  href="fi/index.html"><span class="wp-block-navigation-item__label">Suomi</span></a></li><li class="wp-block-navigation-item cik-nav-lang wp-block-navigation-link"><a lang="en" hreflang="en" class="wp-block-navigation-item__content"  href="en/index.html"><span class="wp-block-navigation-item__label">English</span></a></li></ul>
+								
+							</div>
+						</div>
+					</div>
+				</div></nav>
 
 
 <div class="wp-block-group site-header__actions is-nowrap is-layout-flex wp-container-core-group-is-layout-bb35c0b7 wp-block-group-is-layout-flex">
@@ -168,7 +199,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 
 
 
-<div class="wp-block-button is-style-outline is-style-outline--1"><a class="wp-block-button__link wp-element-button" href="index.html#rum">Se rummen</a></div>
+<div class="wp-block-button is-style-outline is-style-outline--2"><a class="wp-block-button__link wp-element-button" href="index.html#rum">Se rummen</a></div>
 </div>
 
 
@@ -443,7 +474,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 
 <div class="wp-block-group cik-row is-layout-flex wp-container-core-group-is-layout-59d6a88c wp-block-group-is-layout-flex">
 <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
-<div class="wp-block-button is-style-outline is-style-outline--2"><a class="wp-block-button__link wp-element-button" href="mailto:hotell@cikada.aland.fi?subject=Konferensf%C3%B6rfr%C3%A5gan">Skicka en förfrågan</a></div>
+<div class="wp-block-button is-style-outline is-style-outline--3"><a class="wp-block-button__link wp-element-button" href="mailto:hotell@cikada.aland.fi?subject=Konferensf%C3%B6rfr%C3%A5gan">Skicka en förfrågan</a></div>
 </div>
 
 
@@ -600,6 +631,7 @@ ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:
 <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/cikada/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
+<script data-wp-router-options="{&quot;loadOnClientNavigation&quot;:true}" fetchpriority="low" id="@wordpress/block-library/navigation/view-js-module" src="wp-includes/js/dist/script-modules/block-library/navigation/view.min.js" type="module"></script>
 <script data-wp-strategy="defer" defer id="cikada-js" src="wp-content/themes/cikada/assets/js/cikada.js"></script>
 <script id="wp-emoji-settings" type="application/json">
 {"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"./wp-includes/js/wp-emoji-release.min.js?ver=7.1.4"}}

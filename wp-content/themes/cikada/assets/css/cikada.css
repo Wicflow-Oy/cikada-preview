@@ -1,7 +1,7 @@
 /*
  * Hotell Cikada – theme styles.
  * Colours, fonts and sizes come from theme.json (--wp--preset--*).
- * Desktop matches the 1280 px concept. Mobile is not designed yet (DEV-387: comes later).
+ * Desktop matches the 1280 px concept; under 782 px the layout follows Emil's mobile design (DEV-387).
  */
 
 :root {
@@ -443,7 +443,7 @@ p a:hover, li a:hover { text-decoration: underline; text-underline-offset: 3px; 
 .cik-phone { font-size: 17px; font-weight: 600; }
 .cik-phone a { color: var(--cik-ink); white-space: nowrap; }
 .cik-conf__mt .wp-block-media-text__media { background: var(--cik-sky-2); }
-.cik-conf__mt .wp-block-media-text__media img { height: 340px; object-fit: cover; object-position: 50% 62%; }
+.cik-conf__mt .wp-block-media-text__media img { display: block; height: 340px; object-fit: cover; object-position: 50% 62%; background: var(--cik-sky-2); } /* block: a missing photo keeps its height */
 @media (min-width: 782px) {
 	.wp-block-media-text.cik-conf__mt { grid-template-columns: minmax(0, 1fr) minmax(0, 600px); column-gap: clamp(40px, 5.6vw, 72px); }
 }
@@ -563,6 +563,360 @@ p a:hover, li a:hover { text-decoration: underline; text-underline-offset: 3px; 
 		transition-delay: var(--cik-d, 0ms);
 	}
 	.cik-js .cik-r.is-in { opacity: 1; transform: none; }
+}
+
+/* ---------- Phone menu rows (contact and languages) ----------
+   They are navigation links so they live in the same menu, but they only show
+   inside the open phone overlay; on wider screens the menu is unchanged. */
+
+.site-nav .cik-nav-contact,
+.site-nav .cik-nav-lang { display: none; }
+.site-nav .is-menu-open .cik-nav-contact,
+.site-nav .is-menu-open .cik-nav-lang { display: flex; }
+
+/* =====================================================================
+   Phone and small tablet (under 782 px), built from Emil's mobile design
+   (DEV-387, 3 Nov 2026). Nothing in this block reaches 782 px and wider.
+   ===================================================================== */
+
+@media (max-width: 781px) {
+
+	/* ----- Global ----- */
+	body {
+		--wp--style--root--padding-left: 20px !important;
+		--wp--style--root--padding-right: 20px !important;
+	}
+	html { scroll-padding-top: 72px; }
+	.cik-section { padding-block: 56px; }
+
+	/* ----- Header: logo · Boka rum · menu button, sticky ----- */
+	.site-header { position: sticky; top: 0; }
+	.site-header__bar { padding-left: 20px !important; padding-right: 9px !important; }
+	.site-header__inner { min-height: 64px; gap: 12px; }
+	.site-header .site-logo img { width: 112px !important; }
+	.site-header__actions { margin-left: auto !important; gap: 4px; }
+	.site-nav { order: 3; }
+	.site-lang { display: none; }
+	.site-header__book .wp-block-button__link {
+		height: 40px;
+		padding: 0 16px;
+		font-size: 15px;
+		line-height: 1;
+	}
+
+	/* Core only collapses the menu below 600 px: keep it collapsed up to 781 px. */
+	.site-nav .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: grid !important;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		color: var(--cik-ink);
+	}
+	.site-nav .wp-block-navigation__responsive-container:not(.is-menu-open) { display: none !important; }
+	.site-nav .wp-block-navigation__responsive-container-open svg,
+	.site-nav .wp-block-navigation__responsive-container-close svg { width: 24px; height: 24px; }
+
+	/* ----- Open menu: below the header, so the logo and Boka rum stay ----- */
+	.site-nav .wp-block-navigation__responsive-container.is-menu-open {
+		top: 64px;
+		padding: 0;
+		background: #fff !important;
+		color: var(--cik-ink) !important;
+		animation: cik-menu-fade 200ms var(--cik-ease-out) both;
+	}
+	.site-nav .is-menu-open .wp-block-navigation__responsive-close,
+	.site-nav .is-menu-open .wp-block-navigation__responsive-dialog { height: 100%; }
+	/* × sits exactly where the menu button was. */
+	.site-nav .is-menu-open .wp-block-navigation__responsive-container-close {
+		position: fixed;
+		top: 10px;
+		right: 9px;
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 6px;
+		background: var(--cik-sky);
+		color: var(--cik-ink);
+	}
+	.site-nav .is-menu-open .wp-block-navigation__responsive-container-content {
+		box-sizing: border-box;
+		height: 100%;
+		padding: 4px 20px 28px !important;
+		align-items: stretch !important;
+		animation: cik-menu-in 200ms var(--cik-ease-out) both;
+	}
+	.site-nav .is-menu-open .wp-block-navigation__container {
+		display: grid !important;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-rows: repeat(5, min-content) 24px repeat(2, min-content) 1fr min-content;
+		gap: 0 !important;
+		width: 100%;
+		height: 100%;
+	}
+	.site-nav .is-menu-open .wp-block-navigation-item { grid-column: 1 / -1; width: 100%; justify-content: flex-start; }
+	.site-nav .is-menu-open .wp-block-navigation-item__content { box-sizing: border-box; }
+	.site-nav .is-menu-open .wp-block-navigation-item:nth-child(6) { grid-row: 7; }
+	.site-nav .is-menu-open .wp-block-navigation-item:nth-child(7) { grid-row: 8; }
+	.site-nav .is-menu-open .cik-nav-lang { grid-row: 10; grid-column: auto; }
+
+	/* Section links: 60 px rows with a line and an arrow. */
+	.site-nav .is-menu-open .wp-block-navigation-item:not(.cik-nav-contact):not(.cik-nav-lang) > .wp-block-navigation-item__content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		border-bottom: 1px solid var(--cik-line);
+		font-family: var(--cik-display);
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: -.015em;
+		color: var(--cik-ink);
+	}
+	.site-nav .is-menu-open .wp-block-navigation-item:not(.cik-nav-contact):not(.cik-nav-lang) > .wp-block-navigation-item__content::after {
+		content: "";
+		flex: none;
+		width: 20px;
+		height: 20px;
+		background: var(--cik-blue);
+		-webkit-mask: var(--cik-i-arrow) center / contain no-repeat;
+		mask: var(--cik-i-arrow) center / contain no-repeat;
+	}
+
+	/* Phone and email: 48 px rows with blue icons. */
+	.site-nav .is-menu-open .cik-nav-contact > .wp-block-navigation-item__content {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		width: 100%;
+		height: 48px;
+		padding: 0;
+		font-size: 17px;
+		font-weight: 600;
+		line-height: 1;
+		color: var(--cik-ink);
+	}
+	.site-nav .is-menu-open .cik-nav-contact > .wp-block-navigation-item__content::before {
+		content: "";
+		flex: none;
+		width: 20px;
+		height: 20px;
+		background: var(--cik-blue);
+		-webkit-mask: var(--cik-i-phone) center / contain no-repeat;
+		mask: var(--cik-i-phone) center / contain no-repeat;
+	}
+	.site-nav .is-menu-open .cik-nav-mail > .wp-block-navigation-item__content::before {
+		-webkit-mask-image: var(--cik-i-mail);
+		mask-image: var(--cik-i-mail);
+	}
+
+	/* Languages: one 46 px row of three equal parts, the current one tinted. */
+	.site-nav .is-menu-open .cik-nav-lang > .wp-block-navigation-item__content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 46px;
+		padding: 0;
+		border: 1px solid var(--cik-line);
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 1;
+		color: var(--cik-ink);
+	}
+	.site-nav .is-menu-open .cik-nav-lang + .cik-nav-lang > .wp-block-navigation-item__content { border-left: 0; }
+	.site-nav .is-menu-open .cik-nav-lang:nth-child(8) > .wp-block-navigation-item__content { border-radius: 6px 0 0 6px; }
+	.site-nav .is-menu-open .cik-nav-lang:nth-child(10) > .wp-block-navigation-item__content { border-radius: 0 6px 6px 0; }
+	.site-nav .is-menu-open .cik-nav-lang.is-current > .wp-block-navigation-item__content {
+		background: var(--cik-sky);
+		color: var(--cik-blue-deep);
+		font-weight: 700;
+	}
+
+	/* Closing (assets/js/cikada.js adds .cik-closing for 150 ms before core closes). */
+	.site-nav .is-menu-open.cik-closing { animation: cik-menu-fade-out 150ms ease-in both; }
+	.site-nav .is-menu-open.cik-closing .wp-block-navigation__responsive-container-content { animation: cik-menu-out 150ms ease-in both; }
+
+	/* ----- Hero: photo first ----- */
+	.cik-hero { padding-block: 0; }
+	.cik-hero__media { order: -1; }
+	/* 220 px and 34 px as designed up to 480 px, then growing so a tablet still has one dominant first screen. */
+	.cik-hero__media img { height: clamp(220px, calc(220px + (100vw - 480px) * .5), 420px); object-position: 30% 62%; }
+	.cik-hero .cik-chip-caption figcaption {
+		right: auto;
+		left: 16px;
+		bottom: 16px;
+		gap: 7px;
+		max-width: calc(100% - 32px);
+		padding: 9px 12px;
+		font-size: 13px;
+	}
+	.cik-hero .cik-chip-caption figcaption::before { width: 15px; height: 15px; }
+	.cik-hero__text { padding: 26px 20px 44px; }
+	.cik-kicker { gap: 9px; font-size: 14px; line-height: 1.3; }
+	.cik-kicker::before { width: 8px; height: 8px; }
+	.cik-hero__title { margin-top: 14px !important; font-size: clamp(34px, calc(34px + (100vw - 480px) * .06), 48px); line-height: 1.06; }
+	.cik-hero__title mark { display: block; } /* the line breaks where blue turns to ink */
+	.cik-lead { margin-top: 14px !important; max-width: none; font-size: 17px; line-height: 1.55; }
+	.cik-hero__ctas { margin-top: 22px !important; gap: 10px; flex-wrap: nowrap !important; }
+	.cik-hero__ctas .wp-block-button { flex: 1 1 0; min-width: 0; }
+	.cik-hero__ctas .wp-block-button__link {
+		width: 100%;
+		height: 52px;
+		justify-content: center;
+		padding: 0 12px;
+		font-size: 16px;
+		box-sizing: border-box;
+	}
+	.cik-call { margin-top: 16px !important; font-size: 15px; line-height: 1.5; }
+
+	/* ----- Hotellet i korthet ----- */
+	.cik-brief { padding-block: 48px 52px; }
+	.cik-brief__title { font-size: 28px; }
+	.cik-brief__cols { margin-top: 24px !important; gap: 28px !important; }
+	.cik-label { padding-bottom: 10px; font-size: 13px; }
+	.cik-ticks li { padding: 10px 0; font-size: 16px; }
+	.cik-ticks li::before { width: 18px; height: 18px; margin-top: 2px; }
+
+	/* ----- 88 rum ----- */
+	.cik-rooms { padding-block: 56px; }
+	.cik-rooms__head { gap: 28px !important; }
+	.cik-rooms__num { gap: 12px; }
+	.cik-bignum { font-size: 104px; }
+	.cik-bignum__unit { padding-bottom: 3px; font-size: 28px; }
+	.cik-rooms__head h2 { font-size: 26px; line-height: 1.12; }
+	.cik-rooms__head h2 + p { margin-top: 14px; font-size: 16px; line-height: 1.6; }
+	.cik-rooms__head .cik-row { margin-top: 24px; gap: 14px 22px; }
+	.cik-rooms__head .cik-row .wp-block-button__link { height: 52px; padding: 0 22px; font-size: 16px; }
+	.cik-tlink { font-size: 16px; }
+	.cik-tlink a { min-height: 44px; }
+	.cik-film {
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 20px 12px !important;
+		margin-top: 32px !important;
+	}
+	.cik-film img { height: auto; aspect-ratio: 4 / 3; }
+	.cik-film figcaption { margin-top: 8px; font-size: 14px; line-height: 1.35; }
+
+	/* ----- Pool, bastu, gym ----- */
+	.cik-spa { padding-block: 56px; }
+	.cik-over { margin-bottom: 12px !important; font-size: 13px; line-height: 1.3; }
+	.cik-spa__title { font-size: 29px; line-height: 1.08; }
+	.cik-spa__photo { margin-top: 28px !important; }
+	.cik-spa__photo img { height: 224px; }
+	.cik-chip-caption.is-dark-chip figcaption { left: 14px; bottom: 14px; padding: 8px 11px; font-size: 13px; }
+	.cik-trio { margin-top: 28px !important; gap: 22px !important; }
+	.cik-trio .wp-block-column { grid-template-columns: 88px minmax(0, 1fr); column-gap: 16px; }
+	.cik-thumb img { width: 88px; height: 88px; }
+	.cik-trio .wp-block-column > h3 { margin: 0 0 4px; font-size: 18px; line-height: 1.3; }
+	.cik-trio p { font-size: 15px; line-height: 1.5; }
+
+	/* ----- Restaurang ----- */
+	.cik-resto { padding-block: 56px; }
+	.cik-ruled { display: block; font-size: 26px; line-height: 1.12; }
+	.cik-ruled::after { display: none; }
+	.cik-resto__grid { margin-top: 24px !important; gap: 20px !important; }
+	.cik-resto__main img { height: auto; aspect-ratio: 4 / 3; }
+	.cik-resto__main figcaption,
+	.cik-resto__small figcaption { margin-top: 8px; font-size: 14px; line-height: 1.4; }
+	.cik-chips { gap: 8px; }
+	.cik-chips li { padding: 9px 12px; font-size: 14px; }
+	.cik-resto__side > p { margin-top: 16px; font-size: 16px; line-height: 1.6; }
+	.cik-resto__small { margin-top: 24px !important; padding-top: 0; }
+	.cik-resto__small img { height: 200px; }
+
+	/* ----- Konferens: photo first, stacked up to 781 px ----- */
+	.cik-conf { padding-block: 48px 52px; }
+	.wp-block-media-text.cik-conf__mt { grid-template-columns: 100% !important; }
+	.cik-conf__mt .wp-block-media-text__media { grid-column: 1 !important; grid-row: 1 !important; }
+	.cik-conf__mt .wp-block-media-text__content { grid-column: 1 !important; grid-row: 2 !important; margin-top: 24px; }
+	.cik-conf__mt .wp-block-media-text__media img { height: 224px; }
+	.cik-conf__mt h2 { font-size: 26px; line-height: 1.12; }
+	.cik-conf__mt .wp-block-media-text__content > h2 + p { margin-top: 12px; max-width: none; font-size: 16px; line-height: 1.6; }
+	.cik-conf__mt .wp-block-media-text__content > .cik-row { flex-direction: column; align-items: stretch !important; gap: 10px; margin-top: 22px; }
+	.cik-conf__mt .cik-row .wp-block-buttons,
+	.cik-conf__mt .cik-row .wp-block-button,
+	.cik-conf__mt .cik-row .wp-block-button__link { width: 100%; }
+	.cik-conf__mt .cik-row .wp-block-button__link { height: 52px; justify-content: center; padding: 0; font-size: 16px; box-sizing: border-box; }
+	.cik-phone { text-align: center; font-size: 16px; }
+	.cik-phone a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; }
+	.cik-phone a::before {
+		content: "";
+		flex: none;
+		width: 18px;
+		height: 18px;
+		background: var(--cik-blue);
+		-webkit-mask: var(--cik-i-phone) center / contain no-repeat;
+		mask: var(--cik-i-phone) center / contain no-repeat;
+	}
+
+	/* ----- Hamngatan 1 ----- */
+	.cik-visit { padding-block: 56px; }
+	.cik-visit__grid { gap: 28px !important; }
+	.cik-visit__media .wp-block-image { height: auto; }
+	.cik-visit__media img { height: auto; aspect-ratio: 4 / 3; }
+	.cik-visit__media figcaption { margin-top: 8px; font-size: 14px; line-height: 1.4; }
+	.cik-visit h2 { font-size: 26px; line-height: 1.12; }
+	.cik-sub { margin-top: 10px !important; font-size: 16px; line-height: 1.5; }
+	.cik-dist { margin-top: 20px !important; }
+	.cik-dist td { padding: 14px 0; font-size: 16px; line-height: 1.4; }
+	.cik-dist td + td { padding-left: 12px; font-size: 19px; }
+	.cik-visit .cik-tlink { margin-top: 18px; }
+	.cik-book { display: block; margin-top: 28px !important; padding: 24px 20px; }
+	.cik-book h3 { font-size: 22px; line-height: 1.25; }
+	.cik-book > p:not(.cik-book__lines) { margin-top: 6px !important; font-size: 15px; line-height: 1.5; }
+	.cik-book > .wp-block-buttons { margin-top: 18px !important; }
+	.cik-book .wp-block-button,
+	.cik-book .wp-block-button__link { width: 100%; }
+	.cik-book .wp-block-button__link { height: 52px; justify-content: center; padding: 0; font-size: 16px; box-sizing: border-box; }
+	.cik-book__lines { flex-direction: column; gap: 0; margin-top: 18px !important; padding-top: 8px; font-size: 15px; }
+	.cik-book__lines a { min-height: 44px; gap: 10px; }
+
+	/* ----- Footer ----- */
+	.site-footer__main { padding-block: 44px 32px; }
+	.site-footer__cols {
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 32px 16px !important;
+	}
+	.site-footer__cols > .wp-block-column:nth-child(-n + 2) { grid-column: 1 / -1; }
+	.site-footer .site-logo img { width: 132px !important; }
+	.site-footer__about p { margin-top: 14px; max-width: 280px; font-size: 15px; }
+	.site-footer__title { margin-bottom: 10px !important; font-size: 13px; } /* design: 12 px; 13 px is the readable minimum */
+	.site-footer__cols .wp-block-column > p,
+	.site-footer__links li { font-size: 15px; }
+	.site-footer__links li { padding: 0; }
+	.site-footer__links a,
+	.site-footer__cols .wp-block-column > p a { display: flex; align-items: center; min-height: 40px; }
+	.site-footer__cols .wp-block-column > p:has(a) br { display: none; }
+	.site-footer__cols .wp-block-column > p + p { margin-top: 2px; }
+	.site-footer__links .site-footer__note { display: block; margin-top: -6px; padding-bottom: 6px; font-size: 13px; }
+	.site-footer__bar { padding-block: 4px 16px; font-size: 14px; }
+	.site-footer__bar-inner { flex-direction: column; align-items: flex-start !important; gap: 2px; }
+	.site-footer__langs { order: -1; gap: 20px; }
+	.site-footer__langs a,
+	.site-footer__langs strong { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* Very narrow phones: room for the longer "Book a room" / "Varaa huone" beside the logo. */
+@media (max-width: 359px) {
+	.site-header .site-logo img { width: 96px !important; }
+	.site-header__inner { gap: 8px; }
+	.site-header__book .wp-block-button__link { padding: 0 12px; }
+}
+
+@keyframes cik-menu-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cik-menu-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes cik-menu-in { from { transform: translateY(-12px); } to { transform: none; } }
+@keyframes cik-menu-out { from { transform: none; } to { transform: translateY(-12px); } }
+@media (prefers-reduced-motion: reduce) {
+	.site-nav .is-menu-open .wp-block-navigation__responsive-container-content,
+	.site-nav .is-menu-open.cik-closing .wp-block-navigation__responsive-container-content { animation: none !important; }
 }
 
 /* ---------- Plain pages (privacy policy etc.) ---------- */
